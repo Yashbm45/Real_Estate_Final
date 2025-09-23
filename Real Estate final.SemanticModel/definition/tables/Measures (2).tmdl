@@ -1,0 +1,45 @@
+table 'Measures (2)'
+	lineageTag: d3744997-e25e-42aa-831a-d146ad5872fe
+
+	measure Profit = SUM('realestate factjobfinancials'[ProfitAmount])
+		lineageTag: e779b27c-f8cf-482c-9d35-f64489af13cf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Delayed Jobs' = CALCULATE(COUNT('realestate dimclient'[ClientID]), FILTER('realestate dimjob', 'realestate dimjob'[IsDelayed] == TRUE()))
+		formatString: 0
+		lineageTag: 8150ac32-0f57-41be-a26a-a0ed1727b441
+
+	measure 'Total Jobs' = SUM('realestate dimjob'[JobID])
+		formatString: 0
+		lineageTag: 7f52a1b5-d1bf-445c-b56e-ca6e7ff9a2f6
+
+	measure 'Ongoing Jobs' = CALCULATE(SUM('realestate dimjob'[JobID]), 'realestate dimjob'[CompletionStatus] <> "Completed")
+		formatString: 0
+		lineageTag: e688de4a-ed1a-414e-aa5e-7908691f84bf
+
+	measure 'Completed Jobs' = CALCULATE(SUM('realestate dimjob'[JobID]), 'realestate dimjob'[CompletionStatus] = "Completed")
+		formatString: 0
+		lineageTag: 3da85f24-59f3-46dc-9464-d817610317b1
+
+	measure 'Woker Count' = CALCULATE(SUM('realestate factjobworkforce'[EmployeeID]), 'realestate factjobworkforce'[Role] == "Worker")
+		formatString: 0
+		lineageTag: cf4702af-fcdd-49ca-a95e-3162c863beea
+
+	measure 'LY Profit' = CALCULATE([Profit], SAMEPERIODLASTYEAR('realestate dimdate'[Date]))
+		lineageTag: a8aab131-c69d-492c-ae0f-f179e80ebc3b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Measures (2)' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,267 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "7545200e4168aa21bf59",
+  "position": {
+    "x": 8.7272727272727266,
+    "y": 437.81818181818181,
+    "z": 2000,
+    "height": 267.63636363636363,
+    "width": 951.27272727272725,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "realestate dimjob"
+                    }
+                  },
+                  "Property": "JobID"
+                }
+              },
+              "queryRef": "realestate dimjob.JobID",
+              "nativeQueryRef": "JobID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "realestate dimjob"
+                    }
+                  },
+                  "Property": "ClientID"
+                }
+              },
+              "queryRef": "realestate dimjob.ClientID",
+              "nativeQueryRef": "ClientID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "realestate dimjob"
+                    }
+                  },
+                  "Property": "EndDate"
+                }
+              },
+              "queryRef": "realestate dimjob.EndDate",
+              "nativeQueryRef": "EndDate"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "realestate dimjob"
+                    }
+                  },
+                  "Property": "JobName"
+                }
+              },
+              "queryRef": "realestate dimjob.JobName",
+              "nativeQueryRef": "JobName"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "realestate dimjob"
+                        }
+                      },
+                      "Property": "NumberOfPeople"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(realestate dimjob.NumberOfPeople)",
+              "nativeQueryRef": "Working Count",
+              "displayName": "Working Count"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "realestate dimjob"
+                        }
+                      },
+                      "Property": "TenureDays"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(realestate dimjob.TenureDays)",
+              "nativeQueryRef": "Tenure Days",
+              "displayName": "Tenure Days"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "realestate dimjob"
+                    }
+                  },
+                  "Property": "ContractType"
+                }
+              },
+              "queryRef": "realestate dimjob.ContractType",
+              "nativeQueryRef": "Contract Type",
+              "displayName": "Contract Type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "realestate dimjob"
+                    }
+                  },
+                  "Property": "CompletionStatus"
+                }
+              },
+              "queryRef": "realestate dimjob.CompletionStatus",
+              "nativeQueryRef": "Completion Status",
+              "displayName": "Completion Status"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top Jobs'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "18D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "65c194ee26e9ba78bb9d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "realestate dimjob"
+              }
+            },
+            "Property": "EndDate"
+          }
+        },
+        "type": "RelativeDate",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "r",
+              "Entity": "realestate dimjob",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Between": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "r"
+                        }
+                      },
+                      "Property": "EndDate"
+                    }
+                  },
+                  "LowerBound": {
+                    "DateSpan": {
+                      "Expression": {
+                        "DateAdd": {
+                          "Expression": {
+                            "DateAdd": {
+                              "Expression": {
+                                "Now": {}
+                              },
+                              "Amount": 1,
+                              "TimeUnit": 0
+                            }
+                          },
+                          "Amount": -30,
+                          "TimeUnit": 0
+                        }
+                      },
+                      "TimeUnit": 0
+                    }
+                  },
+                  "UpperBound": {
+                    "DateSpan": {
+                      "Expression": {
+                        "Now": {}
+                      },
+                      "TimeUnit": 0
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

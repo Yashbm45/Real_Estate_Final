@@ -1,0 +1,43 @@
+table 'realestate dimsitelocation'
+	lineageTag: f2d0de5f-1b58-4aef-9f02-c2c36f8c0d79
+
+	column SiteLocationID
+		dataType: int64
+		formatString: 0
+		lineageTag: f7d478e6-f58a-4499-95cc-b02b54a714bd
+		summarizeBy: none
+		sourceColumn: SiteLocationID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SiteLocationName
+		dataType: string
+		lineageTag: d6f90936-6fcd-4076-ac47-242b97863a81
+		summarizeBy: none
+		sourceColumn: SiteLocationName
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionID
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f5b3318-8e20-4b13-ae2f-de0aa810c4b0
+		summarizeBy: count
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'realestate dimsitelocation' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1", "RealEstate", [ReturnSingleDatabase=true]),
+				    realestate_dimsitelocation = Source{[Schema="realestate",Item="dimsitelocation"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(realestate_dimsitelocation,{"SiteLocationID", "SiteLocationName", "RegionID"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

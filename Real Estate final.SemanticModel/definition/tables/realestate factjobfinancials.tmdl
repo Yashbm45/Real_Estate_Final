@@ -1,0 +1,94 @@
+table 'realestate factjobfinancials'
+	lineageTag: 1cfdf585-adc7-4ec6-bd29-83fb9162f573
+
+	column FactFinancialID
+		dataType: int64
+		formatString: 0
+		lineageTag: db166f23-68e7-4d0b-93a9-8fbff6952872
+		summarizeBy: count
+		sourceColumn: FactFinancialID
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobID
+		dataType: int64
+		formatString: 0
+		lineageTag: 84d5606a-0a91-4978-a052-acd0c584764a
+		summarizeBy: none
+		sourceColumn: JobID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DealPrice
+		dataType: double
+		lineageTag: 5220bee2-a101-4d42-bf31-727ddaf0e1f0
+		summarizeBy: sum
+		sourceColumn: DealPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DiscountAmount
+		dataType: double
+		lineageTag: f57ae215-f4ac-4d65-a133-dbb73916164e
+		summarizeBy: sum
+		sourceColumn: DiscountAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ProfitAmount
+		dataType: double
+		lineageTag: e0fcc674-78c7-4824-ad8e-0a0da743ec66
+		summarizeBy: sum
+		sourceColumn: ProfitAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TaxAmount
+		dataType: double
+		lineageTag: d52e2824-f2b0-409f-883c-4633b63edc89
+		summarizeBy: sum
+		sourceColumn: TaxAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CommissionAmount
+		dataType: double
+		lineageTag: 1af60ed3-4a02-48fb-b149-485aed8b46b3
+		summarizeBy: sum
+		sourceColumn: CommissionAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RecordDateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: b954a349-59c9-4dd3-b1eb-3a65636e40ac
+		summarizeBy: count
+		sourceColumn: RecordDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'realestate factjobfinancials' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1", "RealEstate", [ReturnSingleDatabase=true]),
+				    realestate_factjobfinancials = Source{[Schema="realestate",Item="factjobfinancials"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(realestate_factjobfinancials,{"FactFinancialID", "JobID", "DealPrice", "DiscountAmount", "ProfitAmount", "TaxAmount", "CommissionAmount", "RecordDateKey"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

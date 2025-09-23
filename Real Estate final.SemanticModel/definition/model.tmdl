@@ -1,0 +1,37 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["realestate dimclient","realestate dimcostcategory","realestate dimemployee","realestate dimjob","realestate dimregion","realestate dimsitelocation","realestate factjobactualcost","realestate factjobestimationcost","realestate factjobfinancials","realestate factjobworkforce","Measures (2)","realestate dimdate"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'realestate dimclient'
+ref table 'realestate dimcostcategory'
+ref table DateTableTemplate_4e22687a-fd5d-4769-b8d9-413fd5448431
+ref table 'realestate dimemployee'
+ref table 'realestate dimjob'
+ref table LocalDateTable_9aa49aa0-1180-4e42-879b-26a2989471cc
+ref table 'realestate dimregion'
+ref table 'realestate dimsitelocation'
+ref table 'realestate factjobactualcost'
+ref table 'realestate factjobestimationcost'
+ref table 'realestate factjobfinancials'
+ref table 'realestate factjobworkforce'
+ref table 'Measures (2)'
+ref table Parameter
+ref table Calender
+ref table LocalDateTable_11e8bff9-700f-4953-ab97-6a2907403b1c
+ref table 'realestate dimdate'
+ref table LocalDateTable_282ba489-06e1-4364-858d-ff4f6fd6df26
+ref table 'Date Para'
+ref table 'Parameter 2'
+
+ref cultureInfo en-IN
+

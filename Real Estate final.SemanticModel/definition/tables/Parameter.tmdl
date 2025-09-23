@@ -1,0 +1,50 @@
+table Parameter
+	lineageTag: feee935a-424a-4dc4-a0c4-11e7bf2eac20
+
+	column Parameter
+		lineageTag: 1d0b07de-c77d-4a1f-bcc9-f9a7a1ae3e73
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: d4d9e072-ab31-456e-af4a-2577bb18ab03
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 5ed41197-4760-408d-8c8d-58f8785fb307
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("Week", NAMEOF('realestate dimdate'[Week]), 0),
+				    ("Month", NAMEOF('realestate dimdate'[Month]), 1),
+				    ("Quarter", NAMEOF('realestate dimdate'[Quarter]), 2),
+				    ("Year", NAMEOF('realestate dimdate'[Year]), 3)
+				}
+
+	annotation PBI_Id = d230133e0f45478186439bdac8886513
+

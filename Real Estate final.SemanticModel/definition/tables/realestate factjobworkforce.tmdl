@@ -1,0 +1,80 @@
+table 'realestate factjobworkforce'
+	lineageTag: 7516ee71-3e6e-4a7f-a246-44311c3e7574
+
+	column FactWorkforceID
+		dataType: int64
+		formatString: 0
+		lineageTag: 24044a01-f543-4095-af05-6b97971e43ce
+		summarizeBy: count
+		sourceColumn: FactWorkforceID
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobID
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f71f263-a026-4b6f-b5b9-9ecd8b81e6e8
+		summarizeBy: count
+		sourceColumn: JobID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeID
+		dataType: int64
+		formatString: 0
+		lineageTag: 520b1c5d-3a06-4d5a-b709-2267ccba386f
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 726e7dec-441c-424b-a1c2-7d7de2587feb
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column HoursWorked
+		dataType: double
+		lineageTag: e3cb6496-08f0-4140-b115-c74bfad0913c
+		summarizeBy: sum
+		sourceColumn: HoursWorked
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Role
+		dataType: string
+		lineageTag: 33fb1386-c18c-46f4-8a98-b7f5f2447e01
+		summarizeBy: none
+		sourceColumn: Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsOvertime
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d51e782d-346b-4fd5-855a-deb1b1b840dc
+		summarizeBy: none
+		sourceColumn: IsOvertime
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'realestate factjobworkforce' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1", "RealEstate", [ReturnSingleDatabase=true]),
+				    realestate_factjobworkforce = Source{[Schema="realestate",Item="factjobworkforce"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(realestate_factjobworkforce,{"FactWorkforceID", "JobID", "EmployeeID", "DateKey", "HoursWorked", "Role", "IsOvertime"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

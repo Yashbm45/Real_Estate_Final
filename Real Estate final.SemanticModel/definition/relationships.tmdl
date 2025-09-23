@@ -1,0 +1,98 @@
+relationship 9d463579-f603-4e62-886b-ec25cf3d3724
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'realestate dimjob'.StartDate
+	toColumn: LocalDateTable_9aa49aa0-1180-4e42-879b-26a2989471cc.Date
+
+relationship ac0125e6-b2e7-4d0e-94af-14a7a6be0352
+	fromColumn: 'realestate dimclient'.ClientRegionID
+	toColumn: 'realestate dimregion'.RegionID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 7cc51acd-0bb4-4b5c-a9db-56aa3ef3c97d
+	fromColumn: 'realestate dimemployee'.LocationID
+	toColumn: 'realestate dimsitelocation'.SiteLocationID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 54ad104a-80af-474e-a988-417bf4e8c923
+	fromColumn: 'realestate dimjob'.ClientID
+	toColumn: 'realestate dimclient'.ClientID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 860ec22f-dcc1-4470-9882-77e82b4c139c
+	fromColumn: 'realestate dimjob'.SiteLocationID
+	toColumn: 'realestate dimsitelocation'.SiteLocationID
+
+	annotation PBI_IsFromSource = FS
+
+relationship e8997c9a-6e10-4225-accd-bbd0caba9274
+	isActive: false
+	fromColumn: 'realestate dimsitelocation'.RegionID
+	toColumn: 'realestate dimregion'.RegionID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 85c4f702-98e9-44be-97d3-774b1a17ccf2
+	fromColumn: 'realestate factjobactualcost'.CostCategoryID
+	toColumn: 'realestate dimcostcategory'.CostCategoryID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 7414fb20-0fc7-491f-afa1-f07d538a7e7a
+	fromColumn: 'realestate factjobactualcost'.JobID
+	toColumn: 'realestate dimjob'.JobID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 4378336f-c098-4af7-86a4-779f908d9648
+	fromColumn: 'realestate factjobestimationcost'.CostCategoryID
+	toColumn: 'realestate dimcostcategory'.CostCategoryID
+
+	annotation PBI_IsFromSource = FS
+
+relationship aafffe2b-fae8-4ed9-9d60-d4d10181983d
+	fromColumn: 'realestate factjobestimationcost'.JobID
+	toColumn: 'realestate dimjob'.JobID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 51d67006-5843-4371-8235-cbad74ada6f2
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'realestate factjobfinancials'.JobID
+	toColumn: 'realestate dimjob'.JobID
+
+	annotation PBI_IsFromSource = FS
+
+relationship d29e5f73-c0cd-4ef7-93aa-225044b6f0a0
+	fromColumn: 'realestate factjobworkforce'.EmployeeID
+	toColumn: 'realestate dimemployee'.EmployeeID
+
+	annotation PBI_IsFromSource = FS
+
+relationship a4334bc2-8f66-40a3-9ac6-ef8656df35b0
+	isActive: false
+	fromColumn: 'realestate factjobworkforce'.JobID
+	toColumn: 'realestate dimjob'.JobID
+
+	annotation PBI_IsFromSource = FS
+
+relationship 8ee563cc-f55d-482a-9019-7128ee664e5f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calender.Date
+	toColumn: LocalDateTable_11e8bff9-700f-4953-ab97-6a2907403b1c.Date
+
+relationship a0db687d-c4d6-471d-b4b4-c6444a44ed19
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'realestate dimdate'.Date
+	toColumn: LocalDateTable_282ba489-06e1-4364-858d-ff4f6fd6df26.Date
+
+relationship 2d7817a9-f354-92d1-96dc-1f7b9f5c94b4
+	fromColumn: 'realestate factjobworkforce'.DateKey
+	toColumn: 'realestate dimdate'.DateKey
+
+relationship 1981db7c-3d25-ab58-c470-a1fe1300ff16
+	fromColumn: 'realestate dimjob'.EndDate
+	toColumn: 'realestate dimdate'.Date
+

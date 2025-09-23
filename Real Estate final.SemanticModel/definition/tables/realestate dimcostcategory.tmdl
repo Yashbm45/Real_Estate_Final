@@ -1,0 +1,42 @@
+table 'realestate dimcostcategory'
+	lineageTag: 03da7e9a-c122-4017-a7cf-7df6ef68e60b
+
+	column CostCategoryID
+		dataType: int64
+		formatString: 0
+		lineageTag: c8b365ba-1022-4942-b368-ab9b5a207dc3
+		summarizeBy: none
+		sourceColumn: CostCategoryID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CostCategoryName
+		dataType: string
+		lineageTag: 133d876a-97c4-4fc7-b797-27c1ecee218b
+		summarizeBy: none
+		sourceColumn: CostCategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 5b8f4e33-17ea-4ea6-a927-5f6c1bf5e75e
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'realestate dimcostcategory' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1", "RealEstate", [ReturnSingleDatabase=true]),
+				    realestate_dimcostcategory = Source{[Schema="realestate",Item="dimcostcategory"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(realestate_dimcostcategory,{"CostCategoryID", "CostCategoryName", "Description"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

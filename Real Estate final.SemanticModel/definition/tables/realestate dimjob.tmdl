@@ -1,0 +1,130 @@
+table 'realestate dimjob'
+	lineageTag: 2a5d380c-bcf4-4ec5-80e6-a5fbb4f03983
+
+	column JobID
+		dataType: int64
+		formatString: 0
+		lineageTag: fbdd0e13-0ad2-4e38-b643-1f05cf5fa376
+		summarizeBy: none
+		sourceColumn: JobID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClientID
+		dataType: int64
+		formatString: 0
+		lineageTag: e980b4e8-d009-40ec-9e58-3ec7ef70ebd4
+		summarizeBy: none
+		sourceColumn: ClientID
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobName
+		dataType: string
+		lineageTag: 28bcfb5f-1ab9-4888-8656-9fbc5556f72e
+		summarizeBy: none
+		sourceColumn: JobName
+
+		annotation SummarizationSetBy = Automatic
+
+	column SiteLocationID
+		dataType: int64
+		formatString: 0
+		lineageTag: ead8d5fe-6ad0-4be2-9fee-621074fdb235
+		summarizeBy: none
+		sourceColumn: SiteLocationID
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8cb73f9f-3d31-4f83-b36b-96e364ea422e
+		summarizeBy: none
+		sourceColumn: StartDate
+
+		variation Variation
+			isDefault
+			relationship: 9d463579-f603-4e62-886b-ec25cf3d3724
+			defaultHierarchy: LocalDateTable_9aa49aa0-1180-4e42-879b-26a2989471cc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column EndDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d2f4eb02-4874-475c-8169-f4870b3aa0cb
+		summarizeBy: none
+		sourceColumn: EndDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column TenureDays
+		dataType: int64
+		formatString: 0
+		lineageTag: bd414e02-d545-40f1-a506-86d478cb5c60
+		summarizeBy: sum
+		sourceColumn: TenureDays
+
+		annotation SummarizationSetBy = Automatic
+
+	column CompletionStatus
+		dataType: string
+		lineageTag: 7814e338-3c82-4760-88f4-5138640a39cc
+		summarizeBy: none
+		sourceColumn: CompletionStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsDelayed
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7b455e4f-5d50-4b6a-ba2d-3075f1e49936
+		summarizeBy: none
+		sourceColumn: IsDelayed
+
+		annotation SummarizationSetBy = Automatic
+
+	column NumberOfPeople
+		dataType: int64
+		formatString: 0
+		lineageTag: e32803e1-c1c6-4dc1-b6cb-e5b635cac411
+		summarizeBy: sum
+		sourceColumn: NumberOfPeople
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobType
+		dataType: string
+		lineageTag: 5ebc8a81-07ca-4998-a348-9f069d794a09
+		summarizeBy: none
+		sourceColumn: JobType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContractType
+		dataType: string
+		lineageTag: 7dcafcc5-5159-40af-9d62-07d1cd3fe50a
+		summarizeBy: none
+		sourceColumn: ContractType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'realestate dimjob' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1", "RealEstate", [ReturnSingleDatabase=true]),
+				    realestate_dimjob = Source{[Schema="realestate",Item="dimjob"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(realestate_dimjob,{"JobID", "ClientID", "JobName", "SiteLocationID", "StartDate", "EndDate", "TenureDays", "CompletionStatus", "IsDelayed", "NumberOfPeople", "JobType", "ContractType"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

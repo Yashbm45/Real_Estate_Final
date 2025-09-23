@@ -1,0 +1,67 @@
+table 'realestate dimclient'
+	lineageTag: d6d01d9d-43de-4a0a-ae7f-c614e8800cde
+
+	column ClientID
+		dataType: int64
+		formatString: 0
+		lineageTag: 7cad3df8-2aab-422f-8338-f3c19abaf9c4
+		summarizeBy: none
+		sourceColumn: ClientID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClientName
+		dataType: string
+		lineageTag: d9eb422b-37c2-49f1-9325-351ffc3ece20
+		summarizeBy: none
+		sourceColumn: ClientName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClientType
+		dataType: string
+		lineageTag: d264751f-a14c-4e6c-954e-53503da8a60f
+		summarizeBy: none
+		sourceColumn: ClientType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContactPhone
+		dataType: string
+		lineageTag: 078a4310-2228-48ff-b00d-c9f1bb96def4
+		summarizeBy: none
+		sourceColumn: ContactPhone
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContactEmail
+		dataType: string
+		lineageTag: 2c583d18-21e8-444c-a718-2a856256d783
+		summarizeBy: none
+		sourceColumn: ContactEmail
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClientRegionID
+		dataType: int64
+		formatString: 0
+		lineageTag: af846d78-cfb2-4575-b8f1-dabcffd52db0
+		summarizeBy: none
+		sourceColumn: ClientRegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'realestate dimclient' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1", "RealEstate", [ReturnSingleDatabase=true]),
+				    realestate_dimclient = Source{[Schema="realestate",Item="dimclient"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(realestate_dimclient,{"ClientID", "ClientName", "ClientType", "ContactPhone", "ContactEmail", "ClientRegionID"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

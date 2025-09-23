@@ -1,0 +1,34 @@
+table 'realestate dimregion'
+	lineageTag: 49516de8-1503-4347-83da-8bc8d47a2630
+
+	column RegionID
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c18dae8-ee58-40d8-a0da-2546d410fbca
+		summarizeBy: none
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionName
+		dataType: string
+		lineageTag: 1a75542c-edd2-4805-a4d8-c0fd0845d730
+		summarizeBy: none
+		sourceColumn: RegionName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'realestate dimregion' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1", "RealEstate", [ReturnSingleDatabase=true]),
+				    realestate_dimregion = Source{[Schema="realestate",Item="dimregion"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(realestate_dimregion,{"RegionID", "RegionName"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

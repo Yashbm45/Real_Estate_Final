@@ -1,0 +1,63 @@
+table 'realestate factjobactualcost'
+	lineageTag: f2b98cc2-abb1-42b8-8899-2b27206f93ed
+
+	column FactActualCostID
+		dataType: int64
+		formatString: 0
+		lineageTag: 97c827a2-056f-4f12-afcc-9b03cdcb1839
+		summarizeBy: count
+		sourceColumn: FactActualCostID
+
+		annotation SummarizationSetBy = Automatic
+
+	column JobID
+		dataType: int64
+		formatString: 0
+		lineageTag: e4c6917b-45bc-4a8e-abd8-0d8e84e8cd63
+		summarizeBy: none
+		sourceColumn: JobID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CostCategoryID
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a9133e2-32fc-4acd-8bec-b801dd0e01b7
+		summarizeBy: none
+		sourceColumn: CostCategoryID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActualCostAmount
+		dataType: double
+		lineageTag: 0474ff61-84f2-4440-8495-73a75973829d
+		summarizeBy: sum
+		sourceColumn: ActualCostAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CostDateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 2aca1654-d448-443f-9a0f-9d9cf28877da
+		summarizeBy: count
+		sourceColumn: CostDateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'realestate factjobactualcost' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1", "RealEstate", [ReturnSingleDatabase=true]),
+				    realestate_factjobactualcost = Source{[Schema="realestate",Item="factjobactualcost"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(realestate_factjobactualcost,{"FactActualCostID", "JobID", "CostCategoryID", "ActualCostAmount", "CostDateKey"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

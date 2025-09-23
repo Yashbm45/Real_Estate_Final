@@ -1,0 +1,67 @@
+table 'realestate dimemployee'
+	lineageTag: ed802626-5793-43e1-9ab1-b1bf9f31a97b
+
+	column EmployeeID
+		dataType: int64
+		formatString: 0
+		lineageTag: cc6967f0-76a3-4873-81cc-7bfd7b77f1c8
+		summarizeBy: none
+		sourceColumn: EmployeeID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeName
+		dataType: string
+		lineageTag: 4020d5c3-975d-45de-bdf4-b952ee637937
+		summarizeBy: none
+		sourceColumn: EmployeeName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Role
+		dataType: string
+		lineageTag: 44171151-a0af-4716-86b6-a837d3ec9c61
+		summarizeBy: none
+		sourceColumn: Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: eea0f943-47d9-4369-985f-656ad4c8b89c
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmploymentType
+		dataType: string
+		lineageTag: c36f7cdf-6c33-496a-b04f-c3fba9caed91
+		summarizeBy: none
+		sourceColumn: EmploymentType
+
+		annotation SummarizationSetBy = Automatic
+
+	column LocationID
+		dataType: int64
+		formatString: 0
+		lineageTag: a0b759e2-d080-4210-8cce-5945deea2d1e
+		summarizeBy: none
+		sourceColumn: LocationID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'realestate dimemployee' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1", "RealEstate", [ReturnSingleDatabase=true]),
+				    realestate_dimemployee = Source{[Schema="realestate",Item="dimemployee"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(realestate_dimemployee,{"EmployeeID", "EmployeeName", "Role", "Department", "EmploymentType", "LocationID"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,95 @@
+table 'realestate dimdate'
+	lineageTag: 98820d0a-6d8a-41c0-b14c-f6b0db88657f
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 21bb5b29-ca66-40fc-812d-83ffa4c6ad1d
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f7c8f56e-0779-4d29-b57b-53bfc8817678
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: a0db687d-c4d6-471d-b4b4-c6444a44ed19
+			defaultHierarchy: LocalDateTable_282ba489-06e1-4364-858d-ff4f6fd6df26.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 847ae7c9-ad84-4ebd-9f59-1ab28952125b
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 646ce0f3-353d-409e-b237-8504e1eb3258
+		summarizeBy: sum
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: ce61959a-11b3-4c91-a7e1-12458919c2dc
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Week
+		dataType: int64
+		formatString: 0
+		lineageTag: 328a491f-5cc7-481e-b9da-c496c17caf34
+		summarizeBy: sum
+		sourceColumn: Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeek
+		dataType: int64
+		formatString: 0
+		lineageTag: 699fda7c-283b-4000-aad8-35aa5b905327
+		summarizeBy: sum
+		sourceColumn: DayOfWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	column UKBankHolidayFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 35a58212-4fb3-4be4-9740-439cb18c90f4
+		summarizeBy: none
+		sourceColumn: UKBankHolidayFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'realestate dimdate' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1", "realestate", [ReturnSingleDatabase=true]),
+				    realestate_dimdate = Source{[Schema="realestate",Item="dimdate"]}[Data]
+				in
+				    realestate_dimdate
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

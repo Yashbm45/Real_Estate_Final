@@ -1,0 +1,119 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "43c2a7001d4cc39a410b",
+  "position": {
+    "x": 14.490566037735848,
+    "y": 516.22641509433959,
+    "z": 1000,
+    "height": 190.188679245283,
+    "width": 418.41509433962261
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "realestate factjobworkforce"
+                    }
+                  },
+                  "Property": "Role"
+                }
+              },
+              "queryRef": "realestate factjobworkforce.Role",
+              "nativeQueryRef": "Role"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "realestate factjobworkforce"
+                        }
+                      },
+                      "Property": "EmployeeID"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "realestate factjobworkforce.EmployeeID",
+              "nativeQueryRef": "Emp Count",
+              "displayName": "Emp Count"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "realestate factjobworkforce"
+                        }
+                      },
+                      "Property": "HoursWorked"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(realestate factjobworkforce.HoursWorked)",
+              "nativeQueryRef": "Working Hours",
+              "displayName": "Working Hours"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "realestate factjobworkforce"
+                        }
+                      },
+                      "Property": "IsOvertime"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "realestate factjobworkforce.IsOvertime",
+              "nativeQueryRef": "Overtime Hours",
+              "displayName": "Overtime Hours"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "realestate factjobworkforce"
+                      }
+                    },
+                    "Property": "EmployeeID"
+                  }
+                },
+                "Function": 5
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

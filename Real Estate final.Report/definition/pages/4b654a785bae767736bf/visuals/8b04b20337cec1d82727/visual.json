@@ -1,0 +1,103 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "8b04b20337cec1d82727",
+  "position": {
+    "x": 606.5454545454545,
+    "y": 30.545454545454547,
+    "z": 1000,
+    "height": 477.09090909090907,
+    "width": 673.4545454545455,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "realestate dimjob"
+                        }
+                      },
+                      "Property": "ClientID"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(realestate dimjob.ClientID)",
+              "nativeQueryRef": "ClientID"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "realestate factjobfinancials"
+                        }
+                      },
+                      "Property": "JobID"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(realestate factjobfinancials.JobID)",
+              "nativeQueryRef": "JobID"
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "realestate dimclient"
+                    }
+                  },
+                  "Property": "ClientType"
+                }
+              },
+              "queryRef": "realestate dimclient.ClientType",
+              "nativeQueryRef": "ClientType"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "realestate dimjob"
+                      }
+                    },
+                    "Property": "ClientID"
+                  }
+                },
+                "Function": 5
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
