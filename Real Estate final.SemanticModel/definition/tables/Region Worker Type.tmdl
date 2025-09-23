@@ -1,0 +1,48 @@
+table 'Region Worker Type'
+	lineageTag: fa44a249-765e-4474-ac94-4ca0d30a6339
+
+	column 'Region Worker Type'
+		lineageTag: e56fb967-2980-44bb-9e5e-a7383746f1ed
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Region Worker Type Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Region Worker Type Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Region Worker Type Fields'
+		isHidden
+		lineageTag: e93396c9-6f3e-446b-aac8-40770babf5a2
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Region Worker Type Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Region Worker Type Order'
+		isHidden
+		formatString: 0
+		lineageTag: cc5aadec-227a-4e28-9b7c-e0c798933a17
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Region Worker Type' = calculated
+		mode: import
+		source =
+				{
+				    ("RegionName", NAMEOF('realestate dimregion'[RegionName]), 0),
+				    ("Role", NAMEOF('realestate factjobworkforce'[Role]), 1)
+				}
+
+	annotation PBI_Id = 6e3450d29b334ee595f42ed975ffe117
+

@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
-  "name": "5194f889e99417ca6a69",
+  "name": "80dae55551d764cbd909",
   "position": {
-    "x": 856.61538461538464,
-    "y": 120.61538461538461,
-    "z": 4000,
-    "height": 263.38461538461536,
-    "width": 398.76923076923077,
-    "tabOrder": 3000
+    "x": 579.622641509434,
+    "y": 412.09457845712922,
+    "z": 6000,
+    "height": 291.03415333174109,
+    "width": 289.811320754717,
+    "tabOrder": 6000
   },
   "visual": {
-    "visualType": "pieChart",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -42,11 +42,11 @@
                       "Entity": "Measures (2)"
                     }
                   },
-                  "Property": "Woker Count"
+                  "Property": "Profit"
                 }
               },
-              "queryRef": "Measures (2).Woker Count",
-              "nativeQueryRef": "Woker Count"
+              "queryRef": "Measures (2).Profit",
+              "nativeQueryRef": "Profit"
             }
           ]
         }
@@ -61,7 +61,7 @@
                     "Entity": "Measures (2)"
                   }
                 },
-                "Property": "Woker Count"
+                "Property": "Profit"
               }
             },
             "direction": "Descending"
@@ -69,28 +69,6 @@
         ],
         "isDefaultSort": true
       }
-    },
-    "objects": {
-      "legend": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "position": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Right'"
-                }
-              }
-            }
-          }
-        }
-      ]
     },
     "drillFilterOtherVisuals": true
   }

@@ -31,6 +31,10 @@ table 'Measures (2)'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Employee Count' = CALCULATE( COUNTA('realestate dimemployee'[EmployeeID]), ALL('realestate dimemployee'))
+		formatString: 0
+		lineageTag: ef708e21-f30b-472b-9f3c-c30c2bfa63d0
+
 	partition 'Measures (2)' = m
 		mode: import
 		source =

@@ -2,17 +2,17 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
   "name": "43c2a7001d4cc39a410b",
   "position": {
-    "x": 14.490566037735848,
-    "y": 516.22641509433959,
+    "x": 14.673990924289468,
+    "y": 273.9144972534034,
     "z": 1000,
-    "height": 190.188679245283,
-    "width": 418.41509433962261
+    "height": 435.32839742058752,
+    "width": 464.67637926916649
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
-        "Values": {
+        "Category": {
           "projections": [
             {
               "field": {
@@ -26,28 +26,13 @@
                 }
               },
               "queryRef": "realestate factjobworkforce.Role",
-              "nativeQueryRef": "Role"
-            },
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "realestate factjobworkforce"
-                        }
-                      },
-                      "Property": "EmployeeID"
-                    }
-                  },
-                  "Function": 5
-                }
-              },
-              "queryRef": "realestate factjobworkforce.EmployeeID",
-              "nativeQueryRef": "Emp Count",
-              "displayName": "Emp Count"
-            },
+              "nativeQueryRef": "Role",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
             {
               "field": {
                 "Aggregation": {
@@ -84,9 +69,8 @@
                   "Function": 5
                 }
               },
-              "queryRef": "realestate factjobworkforce.IsOvertime",
-              "nativeQueryRef": "Overtime Hours",
-              "displayName": "Overtime Hours"
+              "queryRef": "CountNonNull(realestate factjobworkforce.IsOvertime)",
+              "nativeQueryRef": "Overtime Hours"
             }
           ]
         }
@@ -103,17 +87,165 @@
                         "Entity": "realestate factjobworkforce"
                       }
                     },
-                    "Property": "EmployeeID"
+                    "Property": "HoursWorked"
                   }
                 },
-                "Function": 5
+                "Function": 0
               }
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
     },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "showGradientLegend": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "showTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'TopRight'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fb761cc4b51eb02fce49",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "realestate factjobworkforce"
+              }
+            },
+            "Property": "Role"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "2d2c2bc280bbe1be0b39",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "realestate factjobworkforce"
+                  }
+                },
+                "Property": "HoursWorked"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b3a734e217b28a9f61d3",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "realestate factjobworkforce"
+                  }
+                },
+                "Property": "IsOvertime"
+              }
+            },
+            "Function": 5
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

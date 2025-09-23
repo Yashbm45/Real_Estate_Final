@@ -32,6 +32,7 @@ ref table 'realestate dimdate'
 ref table LocalDateTable_282ba489-06e1-4364-858d-ff4f6fd6df26
 ref table 'Date Para'
 ref table 'Parameter 2'
+ref table 'Region Worker Type'
 
 ref cultureInfo en-IN
 
